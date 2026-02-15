@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="call &quot;$(SolutionDir)..\Batch\hsepackage_packlocal.bat&quot; &quot;$(ProjectName)&quot; &quot;$(ProjectDir)&quot; &quot;$(TargetDir)&quot; &quot;$(SolutionDir)DevStore&quot;&#xD;&#xA;" />
+  </Target>
+
+  <ItemGroup>
+    <Compile Remove="doc\**" />
+    <Compile Remove="includes\**" />
+    <EmbeddedResource Remove="doc\**" />
+    <EmbeddedResource Remove="includes\**" />
+    <None Remove="doc\**" />
+    <None Remove="includes\**" />
+  </ItemGroup>
+
+	<!-- this works fine for me because i own hse core project  -->
+	<!--  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Hse.Core\HSE.Core.csproj" />
+  </ItemGroup>
+-->
+	
+	<!-- But this is the safe way to do it  IF we want to .csproj install -->
+	<ItemGroup>
+		<PackageReference Include="HSE.Core" Version="1.0.0" />
+	</ItemGroup>
+</Project>

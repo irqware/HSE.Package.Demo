@@ -1,0 +1,5 @@
+{
+  "GlobalIncludes": [
+    "HSE.Package.Demo.hs"
+  ]
+}
